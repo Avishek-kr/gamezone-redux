@@ -3,14 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const gameSlice = createSlice({
     name: 'GAME_DETAIL',
     initialState: {
-        game: {},
-        screen: {}
+        game: { platforms: [] },
+        screen: { results: [] },
+        isLoading: true
     },
     reducers: {
         gameDetail: (state, action) => {
             return {...state,
                 game: action.payload.game,
                 screen: action.payload.screen,
+                isLoading: action.payload.isLoading
             }
         }
     },

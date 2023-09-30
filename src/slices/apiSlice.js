@@ -14,6 +14,7 @@ export const apiSlice = createSlice({
                 popular: action.payload.popular,
                 upcoming: action.payload.upcoming,
                 newGames: action.payload.newGames,
+                searched: action.payload.searched
             }
         }
     },

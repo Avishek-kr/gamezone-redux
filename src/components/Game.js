@@ -3,21 +3,35 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { loadDetail } from '../actions/detailAction';
 import { useDispatch } from 'react-redux';
+import { smallImage } from '../utils';
+import { popup } from "../animations";
+import { Link } from 'react-router-dom';
 
 const Game = ({ name, released, image, id }) => {
+    const stringPathId = id.toString();
     const dispatch = useDispatch();
-    const loadDetailsHandler = () => {
-        dispatch(loadDetail(id))
-    }
+    const loadDetailHandler = () => {
+        document.body.style.overflow = "hidden";
+        dispatch(loadDetail(id));
+    };
     return (
-        <StyledGame onClick={loadDetailsHandler}>
-            <h3>{name}</h3>
-            <p>{released}</p>
-            <img
-                src={image}
-                alt={name}
-            />
-        </StyledGame>
+        <StyledGame
+        variants={popup}
+        initial="hidden"
+        animate="show"
+        layoutId={stringPathId}
+        onClick={loadDetailHandler}
+      >
+        <Link to={`/game/${id}`}>
+          <motion.h3 layoutId={`title ${stringPathId}`}>{name}</motion.h3>
+          <p>{released}</p>
+          <motion.img
+            layoutId={`image ${stringPathId}`}
+            src={smallImage(image, 640)}
+            alt={name}
+          />
+        </Link>
+      </StyledGame>
     )
 };
 
